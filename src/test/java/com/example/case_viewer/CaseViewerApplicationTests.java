@@ -8,6 +8,8 @@ class CaseViewerApplicationTests {
 
 	@Test
 	void contextLoads() {
+
+		System.out.println("Context loaded");
 	}
 
 }
