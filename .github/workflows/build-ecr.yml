@@ -1,0 +1,103 @@
+name: Build and Push Case Viewer
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-west-2
+  ECR_REPOSITORY: case-viewer
+
+jobs:
+
+  build-and-push:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ==========================================
+      # 1. Checkout code
+      # ==========================================
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      # ==========================================
+      # 2. Setup Java
+      # ==========================================
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+
+      # ==========================================
+      # 3. Build Spring Boot application
+      # ==========================================
+      - name: Build application
+        run: |
+          mvn clean package -DskipTests
+
+
+      # ==========================================
+      # 4. Connect to AWS using IAM Role
+      # ==========================================
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: "arn:aws:iam::288757602643:role/GitHubDeployment"
+          aws-region: "us-west-2"
+
+
+      # ==========================================
+      # 5. Login to Amazon ECR
+      # ==========================================
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+
+      # ==========================================
+      # 6. Build Docker image
+      # ==========================================
+      - name: Build Docker image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
+            .
+
+
+      # ==========================================
+      # 7. Push image to ECR
+      # ==========================================
+      - name: Push Docker image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+
+      # ==========================================
+      # 8. Display image
+      # ==========================================
+      - name: Display image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Image pushed:"
+          echo "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
