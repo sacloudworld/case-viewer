@@ -53,8 +53,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: "arn:aws:iam::288757602643:role/GitHubDeploymentRole"
-          aws-region: "us-west-2"
+          role-to-assume: arn:aws:iam::288757602643:role/GitHubDeploymentRole
+          aws-region: us-west-2
 
 
       - name: Verify AWS identity
