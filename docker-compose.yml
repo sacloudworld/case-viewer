@@ -1,0 +1,55 @@
+services:
+
+  # ==========================================
+  # PostgreSQL
+  # ==========================================
+  postgres:
+    image: postgres:16
+    container_name: case-viewer-postgres
+    environment:
+      POSTGRES_DB: cases
+      POSTGRES_USER: caseuser
+      POSTGRES_PASSWORD: casepassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+
+  # ==========================================
+  # Redis
+  # ==========================================
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/users.acl:/usr/local/etc/redis/users.acl:ro
+      - redis-data:/data
+    command: >
+      redis-server
+      --aclfile /usr/local/etc/redis/users.acl
+      --appendonly yes
+    restart: unless-stopped
+
+
+  # ==========================================
+  # Prometheus
+  # ==========================================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+
+
+volumes:
+  postgres-data:
+  redis-data:
+  prometheus-data:

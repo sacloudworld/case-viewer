@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.case_viewer.mapper.CaseMapper">
+
+    <select id="findCase"
+            resultType="com.example.case_viewer.mybatis.entity.Case">
+
+        SELECT
+            id,
+            case_number,
+            title,
+            description,
+            status,
+            created_at,
+            updated_at
+        FROM cases 
+        WHERE case_number = #{caseNumber}
+          
+
+    </select>
+
+</mapper>
