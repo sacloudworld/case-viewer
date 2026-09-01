@@ -57,6 +57,9 @@ jobs:
           aws-region: "us-west-2"
 
 
+      - name: Verify AWS identity
+        run: aws sts get-caller-identity
+
       # ==========================================
       # 5. Login to Amazon ECR
       # ==========================================
