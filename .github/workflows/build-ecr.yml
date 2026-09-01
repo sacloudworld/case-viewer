@@ -3,7 +3,7 @@ name: Build and Push Case Viewer
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   id-token: write

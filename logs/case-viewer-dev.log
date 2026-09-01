@@ -8443,3 +8443,33 @@ Caused by: java.lang.ClassNotFoundException: Cannot find class: com.example.case
 2026-09-01 15:26:25.084 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
 2026-09-01 15:26:25.088 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
 2026-09-01 15:26:25.099 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:26:40.077 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:26:40.078 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:26:40.081 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:26:55.083 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:26:55.087 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:26:55.097 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:27:10.077 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:27:10.080 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:27:10.085 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:27:25.078 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:27:25.081 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:27:25.085 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:27:40.079 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:27:40.080 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:27:40.085 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:27:55.086 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:27:55.090 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:27:55.105 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:28:10.081 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:28:10.082 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:28:10.087 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:28:25.078 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:28:25.082 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:28:25.087 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:28:40.081 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:28:40.085 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:28:40.091 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-09-01 15:28:55.081 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/prometheus
+2026-09-01 15:28:55.082 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/prometheus
+2026-09-01 15:28:55.085 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
