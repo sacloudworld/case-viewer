@@ -40,6 +40,8 @@ public class CaseService {
 
         boolean acquired = databaseSemaphore.tryAcquire();
 
+        
+
         if (!acquired) {
             log.warn("DB SEMAPHORE REJECTED - no permit available");
             throw new DatabaseCapacityException("Database capacity exceeded");

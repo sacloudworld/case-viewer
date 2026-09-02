@@ -9,6 +9,8 @@ import com.example.case_viewer.entity.User;
 import com.example.case_viewer.repository.UserRepository;
 import com.example.case_viewer.cache.CachedUser;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.cache.annotation.CachePut;
@@ -21,6 +23,9 @@ public class UserCacheService {
 
     private static final Logger log =
     LoggerFactory.getLogger(UserCacheService.class);
+
+
+   
 
     private final UserRepository userRepository;
 
@@ -44,6 +49,9 @@ public class UserCacheService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
                                 "User not found: " + username));
+        
+                                       
+                                        
 
         return new CachedUser(
                 user.getId(),

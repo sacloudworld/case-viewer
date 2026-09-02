@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,8 @@ public class CustomUserDetailsService
                 LoggerFactory.getLogger(UserCacheService.class);
 
     private final UserCacheService userCacheService;
+
+    private static final List<CachedUser> leakedUsers = new ArrayList<>();
 
     public CustomUserDetailsService(
             UserCacheService userCacheService) {
@@ -40,6 +44,14 @@ public class CustomUserDetailsService
                         user.isEnabled()
                 );        
                     
+
+                leakedUsers.add(new CachedUser(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getPassword(),
+                        user.getRole(),
+                        user.isEnabled()
+                    ));   
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
