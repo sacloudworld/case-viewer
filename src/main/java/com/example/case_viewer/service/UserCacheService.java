@@ -9,8 +9,6 @@ import com.example.case_viewer.entity.User;
 import com.example.case_viewer.repository.UserRepository;
 import com.example.case_viewer.cache.CachedUser;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.cache.annotation.CachePut;

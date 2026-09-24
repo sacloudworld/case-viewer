@@ -11,22 +11,6 @@ import java.util.List;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
-    // pattern is a lower-cased "%text%" or null to match all
-    @Query("""
-            SELECT a FROM Activity a
-            WHERE a.caseEntity.id = :caseId
-              AND (:status IS NULL OR a.status = :status)
-              AND (:pattern IS NULL
-                   OR LOWER(a.activityType) LIKE :pattern
-                   OR LOWER(a.description) LIKE :pattern
-                   OR LOWER(a.performedBy) LIKE :pattern)
-            ORDER BY a.activityAt DESC
-            """)
-    List<Activity> searchByCase(
-            @Param("caseId") Long caseId,
-            @Param("status") ActivityStatus status,
-            @Param("pattern") String pattern);
-
     // The most recent activity of each given case (drives inbox ordering and "awaiting reply")
     @Query("""
             SELECT a FROM Activity a
