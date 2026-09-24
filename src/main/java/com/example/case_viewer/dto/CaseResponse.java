@@ -4,11 +4,9 @@ import com.example.case_viewer.entity.CaseStatus;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 public record CaseResponse(
-        UUID caseId,
-        String caseNumber,
+        Long caseId,
         String title,
         String description,
         CaseStatus status,

@@ -61,12 +61,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -86,7 +81,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation-test</artifactId>
 			<scope>test</scope>
-		</dependency>
+		</dependency> 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
@@ -152,7 +147,77 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-jdbc</artifactId>
 </dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aspectj</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.junit.platform</groupId>
+    <artifactId>junit-platform-suite</artifactId>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+</dependency>
+<!-- Cucumber -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-java</artifactId>
+    <version>7.18.1</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-spring</artifactId>
+    <version>7.18.1</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- JUnit 5 integration -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-junit-platform-engine</artifactId>
+    <version>7.18.1</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+    <groupId>com.oracle.database.jdbc</groupId>
+    <artifactId>ojdbc11</artifactId>
+    <version>23.8.0.25.04</version>
+</dependency>
+<dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <scope>runtime</scope>
+                    <optional>true</optional>
+                </dependency>
 	</dependencies>
+
+	<!-- Maven profiles 
+    <profiles>
+
+        <profile>
+            <id>dev</id>
+
+            <dependencies>
+
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <scope>runtime</scope>
+                    <optional>true</optional>
+                </dependency>
+
+            </dependencies>
+
+        </profile>
+
+    </profiles>
+	-->
 	<!-- Spring Boot Actuator -->
 	<build>
 		<plugins>

@@ -125,6 +125,36 @@ public class SecurityConfig {
                         .permitAll()
 
                         /**
+                         * The React UI (built into resources/static) is public;
+                         * it calls the JWT-protected APIs itself.
+                         */
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/agent",
+                                "/agent/",
+                                "/agent/index.html",
+                                "/assets/**",
+                                "/favicon.svg")
+                        .permitAll()
+
+                        /**
+                         * Agent console APIs, and the JDBC endpoints that list
+                         * every customer's cases, are for agents only.
+                         */
+                        .requestMatchers(
+                                "/api/agent/**",
+                                "/api/cases/search/jdbc/**",
+                                "/api/cases/jdbc/**")
+                        .hasRole("AGENT")
+
+                        /**
+                         * The customer secure inbox is for customers only.
+                         */
+                        .requestMatchers("/api/inbox/**")
+                        .hasRole("USER")
+
+                        /**
                          * All Case APIs require an authenticated user.
                          *
                          * Example:

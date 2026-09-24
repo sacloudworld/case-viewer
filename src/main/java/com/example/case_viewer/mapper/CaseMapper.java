@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 public interface CaseMapper {
 
     Case findCase(
-        @Param("caseNumber") String caseNumber
+        @Param("caseId") Long caseId,
+        @Param("owner") String owner
     );
 }

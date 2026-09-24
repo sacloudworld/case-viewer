@@ -10,15 +10,15 @@
             resultType="com.example.case_viewer.mybatis.entity.Case">
 
         SELECT
-            id,
-            case_number,
+            case_id,
             title,
             description,
             status,
             created_at,
             updated_at
         FROM cases 
-        WHERE case_number = #{caseNumber}
+        WHERE case_id = #{caseId}
+          AND owner_username = #{owner}
           
 
     </select>

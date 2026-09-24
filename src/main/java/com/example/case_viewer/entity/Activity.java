@@ -3,7 +3,6 @@ package com.example.case_viewer.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @Table(
@@ -15,9 +14,12 @@ import java.util.UUID;
 )
 public class Activity {
 
+    // The activity's only identifier: sequential, starting at 1000
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "activity_id_seq")
+    @SequenceGenerator(name = "activity_id_seq", sequenceName = "activity_id_seq", initialValue = 1000, allocationSize = 1)
+    @Column(name = "activity_id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
@@ -46,7 +48,7 @@ public class Activity {
     public Activity() {
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

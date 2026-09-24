@@ -5,12 +5,10 @@ import com.example.case_viewer.dto.ActivityResponse;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 public class Case {
 
-    private UUID caseId;
-    private String caseNumber;
+    private Long caseId;
     private String title;
     private String description;
     private CaseStatus status;
@@ -21,20 +19,12 @@ public class Case {
 
 
 
-    public UUID getCaseId() {
+    public Long getCaseId() {
         return caseId;
     }
 
-    public void setCaseId(UUID caseId) {
+    public void setCaseId(Long caseId) {
         this.caseId = caseId;
-    }
-
-    public String getCaseNumber() {
-        return caseNumber;
-    }
-
-    public void setCaseNumber(String caseNumber) {
-        this.caseNumber = caseNumber;
     }
 
     public String getTitle() {

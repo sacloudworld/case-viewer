@@ -20,6 +20,13 @@ public class MyBatisConfig {
 
         factoryBean.setDataSource(dataSource);
 
+        // This hand-built factory ignores the mybatis.configuration.* properties,
+        // so map case_id -> caseId etc. here.
+        org.apache.ibatis.session.Configuration configuration =
+                new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        factoryBean.setConfiguration(configuration);
+
         factoryBean.setMapperLocations(
                 new PathMatchingResourcePatternResolver()
                         .getResources("classpath*:mapper/*.xml")

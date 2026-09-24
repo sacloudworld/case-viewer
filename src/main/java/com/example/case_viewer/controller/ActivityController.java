@@ -1,20 +1,21 @@
 package com.example.case_viewer.controller;
 
 import com.example.case_viewer.dto.ActivityRequest;
-import com.example.case_viewer.dto.CaseResponse;
-import com.example.case_viewer.service.CaseService;
+import com.example.case_viewer.dto.ActivityResponse;
+import com.example.case_viewer.entity.ActivityStatus;
+import com.example.case_viewer.service.ActivityService;
 
-import com.example.case_viewer.dto.CaseRequest;
+import jakarta.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.security.Principal;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/activity")
+@RequestMapping("/api/cases/{caseId}/activities")
 public class ActivityController {
-
-    /* 
 
     private final ActivityService activityService;
 
@@ -22,67 +23,26 @@ public class ActivityController {
         this.activityService = activityService;
     }
 
- 
-
-     // GET CASE WITH ACTIVITIES
-     @PostMapping("/create")
-     public CaseResponse createActvity(@RequestBody ActivityRequest request) {
-         return activityService.createActvity(request);
-     }
-*/
-    /*
-    {
-    "caseNumber": "CASE-1001",
-    "status": "OPEN",
-    "customerId": 123
-    }
-        @PostMapping("/search")
-    public List<CaseResponse> searchCases(
-            @RequestBody CaseSearchRequest request) {
-
-        return caseService.searchCases(request);
-    }
-
-    GET /api/cases?status=OPEN&priority=HIGH&customerId=1001
+    // SEARCH ACTIVITIES OF A CASE I OWN
+    // GET /api/cases/1000/activities?q=call&status=PENDING
     @GetMapping
-    public List<CaseResponse> searchCases(
-            @RequestParam String status,
-            @RequestParam String priority,
-            @RequestParam Long customerId) {
+    public List<ActivityResponse> searchActivities(
+            @PathVariable Long caseId,
+            @RequestParam(value = "q", required = false) String query,
+            @RequestParam(required = false) ActivityStatus status,
+            Principal principal) {
 
-        return caseService.searchCases(
-                status,
-                priority,
-                customerId
-        );
+        return activityService.searchActivities(caseId, query, status, principal.getName());
     }
 
-    PostMapping
-    public CaseResponse createCase(
-            @RequestBody CreateCaseRequest request) {
-        // Create case
-    }
+    // CREATE ACTIVITY UNDER A CASE I OWN
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ActivityResponse createActivity(
+            @PathVariable Long caseId,
+            @Valid @RequestBody ActivityRequest request,
+            Principal principal) {
 
-    @PutMapping("/{caseNumber}")
-    public CaseResponse updateCase(
-            @PathVariable String caseNumber,
-            @RequestBody UpdateCaseRequest request) {
-        // Replace/update case
+        return activityService.createActivity(caseId, request, principal.getName());
     }
-
-    @PatchMapping("/{caseNumber}")
-    public CaseResponse updateCasePartially(
-            @PathVariable String caseNumber,
-            @RequestBody UpdateCaseRequest request) {
-        // Partial update
-    }
-
-    @DeleteMapping("/{caseNumber}")
-    public void deleteCase(
-            @PathVariable String caseNumber) {
-        // Delete case
-    }
-    
-    */
-
 }

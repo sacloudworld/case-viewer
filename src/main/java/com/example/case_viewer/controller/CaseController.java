@@ -1,12 +1,19 @@
 package com.example.case_viewer.controller;
 
 import com.example.case_viewer.dto.CaseResponse;
+import com.example.case_viewer.dto.CaseSummaryResponse;
+import com.example.case_viewer.entity.CaseStatus;
 import com.example.case_viewer.service.CaseService;
 
 import com.example.case_viewer.dto.CaseRequest;
 
+import jakarta.validation.Valid;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestHeader;
+import java.security.Principal;
+import java.util.List;
 
 
 @RestController
@@ -19,29 +26,52 @@ public class CaseController {
         this.caseService = caseService;
     }
 
-    // GET CASE WITH ACTIVITIES
-    @GetMapping("/{caseNumber}")
-public CaseResponse getCase(
-        @PathVariable String caseNumber,
-       // @RequestHeader("tenant-id") String tenantId) 
-       @RequestHeader(value="tenant-id", required=false) String tenantId) {
+    // SEARCH MY CASES
+    // GET /api/cases?q=printer&status=OPEN
+    @GetMapping
+    public List<CaseSummaryResponse> searchCases(
+            @RequestParam(value = "q", required = false) String query,
+            @RequestParam(required = false) CaseStatus status,
+            Principal principal) {
 
-    return caseService.getCase(caseNumber);
+        return caseService.searchCases(query, status, principal.getName());
+    }
+
+    // GET CASE WITH ACTIVITIES
+    @GetMapping("/{caseId}")
+public CaseResponse getCase(
+        @PathVariable Long caseId,
+       // @RequestHeader("tenant-id") String tenantId) 
+       @RequestHeader(value="tenant-id", required=false) String tenantId,
+       Principal principal) {
+
+    return caseService.getCase(caseId, principal.getName());
 }
 
+     // CREATE CASE
+     @PostMapping({"", "/create"})
+     @ResponseStatus(HttpStatus.CREATED)
+     public CaseResponse createCase(@Valid @RequestBody CaseRequest request, Principal principal) {
+         return caseService.createCase(request, principal.getName());
+     }
+     @GetMapping("/search/jdbc/all")
+     public List<com.example.case_viewer.mapper.CaseResponse> getAllCases() {
+         return caseService.getAllCases();
+     }
+
+     @GetMapping("/jdbc/{caseId}")
+     public com.example.case_viewer.mapper.CaseResponse getJDBCCase(@PathVariable Long caseId) {
+         return caseService.getJDBCCase(caseId);
+     }
+
      // GET CASE WITH ACTIVITIES
-     @PostMapping("/create")
-     public CaseResponse createCase(@RequestBody CaseRequest request) {
-         return caseService.createCase(request);
+     @GetMapping("/search/{caseId}")
+     public CaseResponse findCase(@PathVariable Long caseId, Principal principal) {
+         return caseService.findCase(caseId, principal.getName());
      }
 
 
-     // GET CASE WITH ACTIVITIES
-     @GetMapping("/search/{caseNumber}")
-     public CaseResponse findCase(@PathVariable String caseNumber) {
-         return caseService.findCase(caseNumber);
-     }
-
+    
     /*
     {
     "caseNumber": "CASE-1001",

@@ -23,7 +23,7 @@ public class CustomUserDetailsService
 
     private final UserCacheService userCacheService;
 
-    private static final List<CachedUser> leakedUsers = new ArrayList<>();
+   
 
     public CustomUserDetailsService(
             UserCacheService userCacheService) {
@@ -45,13 +45,7 @@ public class CustomUserDetailsService
                 );        
                     
 
-                leakedUsers.add(new CachedUser(
-                        user.getId(),
-                        user.getUsername(),
-                        user.getPassword(),
-                        user.getRole(),
-                        user.isEnabled()
-                    ));   
+               
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())

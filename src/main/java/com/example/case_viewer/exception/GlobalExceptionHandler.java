@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import java.time.Instant;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,13 +18,43 @@ public class GlobalExceptionHandler {
                         CaseNotFoundException ex) {
 
                 ErrorResponse error = new ErrorResponse(
-                                "ORDER_NOT_FOUND",
+                                "CASE_NOT_FOUND",
                                 ex.getMessage(),
                                 Instant.now());
 
                 return ResponseEntity
                                 .status(HttpStatus.NOT_FOUND)
                                 .body(error);
+        }
+
+        @ExceptionHandler(AttachmentNotFoundException.class)
+        public ResponseEntity<ErrorResponse> handleAttachmentNotFound(
+                        AttachmentNotFoundException ex) {
+
+                return ResponseEntity
+                                .status(HttpStatus.NOT_FOUND)
+                                .body(new ErrorResponse("ATTACHMENT_NOT_FOUND", ex.getMessage(), Instant.now()));
+        }
+
+        @ExceptionHandler(MaxUploadSizeExceededException.class)
+        public ResponseEntity<ErrorResponse> handleUploadTooLarge(
+                        MaxUploadSizeExceededException ex) {
+
+                return ResponseEntity
+                                .status(HttpStatus.PAYLOAD_TOO_LARGE)
+                                .body(new ErrorResponse("ATTACHMENT_TOO_LARGE",
+                                                "Attachments are too large (max 10 MB each, 25 MB per message)",
+                                                Instant.now()));
+        }
+
+        @ExceptionHandler(MissingServletRequestParameterException.class)
+        public ResponseEntity<ErrorResponse> handleMissingParameter(
+                        MissingServletRequestParameterException ex) {
+
+                return ResponseEntity
+                                .status(HttpStatus.BAD_REQUEST)
+                                .body(new ErrorResponse("VALIDATION_ERROR",
+                                                ex.getParameterName() + " is required", Instant.now()));
         }
 
         @ExceptionHandler(MethodArgumentNotValidException.class)

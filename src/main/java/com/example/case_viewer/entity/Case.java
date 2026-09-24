@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,17 +13,17 @@ import org.hibernate.annotations.UpdateTimestamp;
         name = "cases",
         indexes = {
                 @Index(name = "idx_cases_status", columnList = "status"),
-                @Index(name = "idx_cases_case_number", columnList = "case_number")
+                @Index(name = "idx_cases_owner_username", columnList = "owner_username")
         }
 )
 public class Case {
 
+    // The case's only identifier: sequential, starting at 1000
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(name = "case_number", nullable = false, unique = true, length = 30)
-    private String caseNumber;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "case_id_seq")
+    @SequenceGenerator(name = "case_id_seq", sequenceName = "case_id_seq", initialValue = 1000, allocationSize = 1)
+    @Column(name = "case_id")
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
@@ -35,6 +34,9 @@ public class Case {
 
     @Column(length = 2000)
     private String description;
+
+    @Column(name = "owner_username", length = 100)
+    private String ownerUsername;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -59,12 +61,8 @@ public class Case {
     public Case() {
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
-    }
-
-    public String getCaseNumber() {
-        return caseNumber;
     }
 
     public CaseStatus getStatus() {
@@ -77,6 +75,10 @@ public class Case {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getOwnerUsername() {
+        return ownerUsername;
     }
 
     public Instant getCreatedAt() {
@@ -95,10 +97,6 @@ public class Case {
         return activities;
     }
 
-    public void setCaseNumber(String caseNumber) {
-        this.caseNumber = caseNumber;
-    }
-
     public void setStatus(CaseStatus status) {
         this.status = status;
     }
@@ -109,6 +107,10 @@ public class Case {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
     public void setCreatedAt(Instant createdAt) {
